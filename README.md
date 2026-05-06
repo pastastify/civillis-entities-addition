@@ -1,4 +1,4 @@
-# Civillis Entities Addon (CEA)
+# Civillis Entities Addition (CEA)
 
 一个为 [Civillis](https://github.com/MaoxnZ/Civillis) 模组制作的附属模组，通过热力图系统追踪实体活动并生成定居点标记。
 

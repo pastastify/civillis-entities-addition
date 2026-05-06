@@ -52,7 +52,7 @@ authors="Your Name"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Civillis Entities Addon - Extends Civillis to include entity-based civilization scoring.
+Civillis Entities Addition - Extends Civillis to include entity-based civilization scoring.
 
 Features:
 - Scans entities in addition to blocks for civilization calculation
