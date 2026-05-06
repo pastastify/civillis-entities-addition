@@ -1,0 +1,173 @@
+package com.civillis.entities;
+
+import com.civillis.entities.scanner.EntityCivilizationScanner;
+import com.mojang.logging.LogUtils;
+import dev.latvian.mods.kubejs.KubeJSPlugin;
+import dev.latvian.mods.kubejs.script.BindingsEvent;
+import dev.latvian.mods.kubejs.script.ScriptType;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
+import org.slf4j.Logger;
+
+/**
+ * KubeJS integration for Civillis Entities Addon
+ * Provides scripting API for entity weight configuration
+ */
+public class KubeJSIntegration {
+    
+    private static final Logger LOGGER = LogUtils.getLogger();
+    private static boolean initialized = false;
+    
+    /**
+     * Initialize KubeJS integration
+     */
+    public static void init() {
+        if (initialized) {
+            return;
+        }
+        
+        try {
+            // Register KubeJS plugin
+            KubeJSPlugin.registerScriptType(ScriptType.SERVER);
+            KubeJSPlugin.registerBindings(KubeJSIntegration::registerBindings);
+            
+            initialized = true;
+            LOGGER.info("KubeJS integration initialized successfully");
+            
+        } catch (Exception e) {
+            LOGGER.error("Failed to initialize KubeJS integration: {}", e.getMessage());
+        }
+    }
+    
+    /**
+     * Register bindings for KubeJS scripts
+     */
+    private static void registerBindings(BindingsEvent event) {
+        // Add global object for Civillis Entities API
+        event.add("CivillisEntities", new CivillisEntitiesAPI());
+        
+        LOGGER.info("Registered CivillisEntities API for KubeJS");
+    }
+    
+    /**
+     * API class exposed to KubeJS scripts
+     */
+    public static class CivillisEntitiesAPI {
+        
+        /**
+         * Set custom weight for an entity type
+         * @param entityId Entity type ID (e.g., "minecraft:cow")
+         * @param weight Weight value (can be negative for hostile mobs)
+         * @param contributes Whether this entity contributes to civilization score
+         */
+        public void setEntityWeight(String entityId, double weight, boolean contributes) {
+            try {
+                ResourceLocation location = ResourceLocation.parse(entityId);
+                EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(location);
+                
+                if (entityType == null) {
+                    LOGGER.warn("Unknown entity type: {}", entityId);
+                    return;
+                }
+                
+                EntityWeightData weightData = new EntityWeightData(weight, contributes);
+                EntityCivilizationScanner.registerEntityWeight(entityType, weightData);
+                
+                LOGGER.info("Set entity weight for {}: {} (contributes: {})", 
+                           entityId, weight, contributes);
+                
+            } catch (Exception e) {
+                LOGGER.error("Failed to set entity weight for {}: {}", entityId, e.getMessage());
+            }
+        }
+        
+        /**
+         * Set entity weight with default contributes=true
+         */
+        public void setEntityWeight(String entityId, double weight) {
+            setEntityWeight(entityId, weight, true);
+        }
+        
+        /**
+         * Remove custom weight for an entity type (use defaults)
+         */
+        public void removeEntityWeight(String entityId) {
+            try {
+                ResourceLocation location = ResourceLocation.parse(entityId);
+                EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(location);
+                
+                if (entityType != null) {
+                    EntityCivilizationScanner.registerEntityWeight(entityType, EntityWeightData.NONE);
+                    LOGGER.info("Removed custom weight for entity: {}", entityId);
+                }
+                
+            } catch (Exception e) {
+                LOGGER.error("Failed to remove entity weight for {}: {}", entityId, e.getMessage());
+            }
+        }
+        
+        /**
+         * Get current weight for an entity type
+         */
+        public double getEntityWeight(String entityId) {
+            try {
+                ResourceLocation location = ResourceLocation.parse(entityId);
+                EntityType<?> entityType = BuiltInRegistries.ENTITY_TYPE.get(location);
+                
+                if (entityType != null) {
+                    EntityWeightData data = EntityCivilizationScanner.getEntityWeight(entityType);
+                    return data != null ? data.getWeight() : 0.0;
+                }
+                
+            } catch (Exception e) {
+                LOGGER.error("Failed to get entity weight for {}: {}", entityId, e.getMessage());
+            }
+            
+            return 0.0;
+        }
+        
+        /**
+         * Reload all entity weights from datapacks
+         */
+        public void reloadWeights() {
+            EntityCivilizationScanner.clearCustomWeights();
+            LOGGER.info("Entity weights cleared - waiting for datapack reload");
+        }
+        
+        /**
+         * Configure scanning parameters (runtime)
+         */
+        public void configureScanning(int radius, int height) {
+            LOGGER.info("Scanning configuration: radius={}, height={}", radius, height);
+            // Note: Actual config changes would need server restart or /reload
+        }
+        
+        /**
+         * Enable or disable entity scanning
+         */
+        public void setScanningEnabled(boolean enabled) {
+            LOGGER.info("Entity scanning {}", enabled ? "enabled" : "disabled");
+        }
+        
+        /**
+         * Set scanning mode
+         * @param mode Scanning mode: "GLOBAL" or "CIVILIZED_AREA"
+         */
+        public void setScanMode(String mode) {
+            try {
+                com.civillis.entities.ScanMode scanMode = com.civillis.entities.ScanMode.valueOf(mode.toUpperCase());
+                LOGGER.info("Scan mode set to: {}", scanMode);
+            } catch (IllegalArgumentException e) {
+                LOGGER.error("Invalid scan mode: {}. Use GLOBAL or CIVILIZED_AREA", mode);
+            }
+        }
+        
+        /**
+         * Get current scanning mode
+         */
+        public String getScanMode() {
+            return Config.SCAN_MODE.get().getName();
+        }
+    }
+}

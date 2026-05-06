@@ -1,0 +1,52 @@
+{
+  "itemGroup.civillis_entities": "Civillis 实体扩展",
+  
+  "civillis_entities.configuration.weights": "实体权重",
+  "civillis_entities.configuration.entityWeight": "实体权重",
+  "civillis_entities.configuration.entityWeight.tooltip": "追踪实体的文明值权重",
+  
+  "civillis_entities.configuration.entities": "实体配置",
+  "civillis_entities.configuration.entityWeights": "实体权重列表",
+  "civillis_entities.configuration.entityWeights.tooltip": "带权重的文明实体列表，用于热力图系统。格式：'命名空间:实体类型:权重'（例如 'minecraft:villager:1.0'）。如果省略权重，将使用默认值 2.0。只有此列表中的实体会被追踪并为定居点标记贡献热量。示例：['minecraft:villager']（使用默认权重 2.0），['minecraft:villager:1.5', 'minecraft:iron_golem:3.0']（自定义权重）",
+  
+  "civillis_entities.configuration.particles": "粒子效果",
+  "civillis_entities.configuration.enableParticleEffects": "启用粒子效果",
+  "civillis_entities.configuration.enableParticleEffects.tooltip": "使用 Civillis 工具扫描实体时启用粒子效果",
+  "civillis_entities.configuration.particleDurationTicks": "粒子持续时间",
+  "civillis_entities.configuration.particleDurationTicks.tooltip": "粒子效果的持续时间（刻，20刻 = 1秒）",
+  "civillis_entities.configuration.initialParticleType": "初始粒子类型",
+  "civillis_entities.configuration.initialParticleType.tooltip": "初始爆发效果的粒子类型。可用类型：HAPPY_VILLAGER、GLOW、HEART、FLAME、SMOKE 等",
+  "civillis_entities.configuration.continuousParticleType": "持续粒子类型",
+  "civillis_entities.configuration.continuousParticleType.tooltip": "持续效果的粒子类型。可用类型：GLOW、SPELL、INSTANT_SPELL、WITCH 等",
+  "civillis_entities.configuration.continuousParticleInterval": "持续粒子间隔",
+  "civillis_entities.configuration.continuousParticleInterval.tooltip": "连续粒子生成之间的间隔（刻）。数值越低 = 粒子越频繁（性能影响更大）",
+  
+  "civillis_entities.configuration.debug": "调试模式",
+  "civillis_entities.configuration.enableVerboseLogging": "启用详细日志",
+  "civillis_entities.configuration.enableVerboseLogging.tooltip": "启用 CEA 操作的详细日志。禁用时，只记录警告和错误；启用时，会记录采样、处理和实体追踪的详细信息",
+  
+  "civillis_entities.configuration.general": "通用设置",
+  "civillis_entities.configuration.enableCEA": "启用 CEA 模组",
+  "civillis_entities.configuration.enableCEA.tooltip": "控制整个 CEA 模组功能的总开关。禁用时：无采样、无标记处理、无粒子效果。此选项具有最高优先级 - 为 false 时会覆盖所有其他设置",
+  
+  "civillis_entities.configuration.marker_processing": "标记处理",
+  "civillis_entities.configuration.manualPlacementMode": "手动放置模式",
+  "civillis_entities.configuration.manualPlacementMode.tooltip": "手动放置模式 - 适用于管理员/自定义地图创建。禁用（默认）：自动模式 - 热量正常衰减，标记自动创建/更新/删除。启用：手动模式 - 停止所有自动标记管理和热量衰减。使用 /ce_create_marker 和 /ce_remove_marker 进行完全手动控制。标记变为永久性，只能通过管理员命令更改",
+  
+  "civillis_entities.configuration.heatmap_decay": "热力图衰减",
+  "civillis_entities.configuration.usePercentageDecay": "使用百分比衰减",
+  "civillis_entities.configuration.usePercentageDecay.tooltip": "热力图衰减模式选择器。false = 固定值衰减（默认）：每次采样减去固定值；true = 百分比衰减：每次采样按百分比减少热量。固定衰减在低热量区域更稳定；百分比衰减鼓励分散定居点",
+  "civillis_entities.configuration.heatDecayFixed": "固定衰减值",
+  "civillis_entities.configuration.heatDecayFixed.tooltip": "每次采样周期的固定衰减值（当 usePercentageDecay = false 时使用）。数值越高，热量越难积累，需要更多实体或更频繁的采样",
+  "civillis_entities.configuration.heatDecayRate": "百分比衰减率",
+  "civillis_entities.configuration.heatDecayRate.tooltip": "每次采样周期的百分比衰减率（当 usePercentageDecay = true 时使用）。0.0 到 1.0 之间的值（例如 0.10 = 10% 衰减）。数值越高，高热量区域越难积累热量",
+  
+  "civillis_entities.configuration.level_calculation": "等级计算",
+  "civillis_entities.configuration.useLinearLevelCalculation": "使用线性等级计算",
+  "civillis_entities.configuration.useLinearLevelCalculation.tooltip": "等级计算模式选择器。false = 曲线计算（默认）：高等级需要更多热量（进度更慢）；true = 线性计算：等级 = 热量 / 阈值（简单可预测）。曲线模式使高等级更难达到，鼓励更多定居点活动",
+  "civillis_entities.configuration.levelCurveExponent": "等级曲线指数",
+  "civillis_entities.configuration.levelCurveExponent.tooltip": "曲线等级计算的指数（当 useLinearLevelCalculation = false 时使用）。公式：等级 = (热量 / 阈值) ^ (1/指数)。数值越高 = 高等级进度越慢（更具挑战性）；数值越低 = 进度越快（更容易达到高等级）。推荐范围：1.5-3.0（默认 2.0 为平方根曲线）。示例：2.0 = 平方根，3.0 = 立方根",
+  
+  "civillis_entities.message.reloadSuccess": "实体权重重新加载成功",
+  "civillis_entities.message.reloadFailed": "实体权重重新加载失败"
+}

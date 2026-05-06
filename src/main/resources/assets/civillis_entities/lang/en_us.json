@@ -1,0 +1,48 @@
+{
+  "itemGroup.civillis_entities": "Civillis Entities",
+  
+  "civillis_entities.configuration.general": "General Settings",
+  "civillis_entities.configuration.enableCEA": "Enable CEA Mod",
+  "civillis_entities.configuration.enableCEA.tooltip": "Master switch to enable/disable entire CEA mod functionality. When disabled: No sampling, no marker processing, no particle effects. This has HIGHEST priority - overrides all other settings when false",
+  
+  "civillis_entities.configuration.marker_processing": "Marker Processing",
+  "civillis_entities.configuration.manualPlacementMode": "Manual Placement Mode",
+  "civillis_entities.configuration.manualPlacementMode.tooltip": "Manual Placement Mode - for admin/custom map creation. When disabled (default): Automatic mode - heat decays normally, markers auto-create/update/delete. When enabled: Manual mode - stops all automatic marker management and heat decay. Use with /ce create marker and /ce remove marker for full manual control. Markers become permanent and only change via admin commands",
+  
+  "civillis_entities.configuration.entities": "Entity Configuration",
+  "civillis_entities.configuration.entityWeights": "Entity Weights List",
+  "civillis_entities.configuration.entityWeights.tooltip": "List of civilization entities with weights for heatmap system. Format: 'namespace:entity_type:weight' (e.g., 'minecraft:villager:1.0'). If weight is omitted, default value 2.0 will be used. Only entities in this list will be tracked and contribute to settlement markers. Examples: ['minecraft:villager'] (uses default weight 2.0), ['minecraft:villager:1.5', 'minecraft:iron_golem:3.0'] (custom weights)",
+  
+  "civillis_entities.configuration.particles": "Particle Effects",
+  "civillis_entities.configuration.enableParticleEffects": "Enable Particle Effects",
+  "civillis_entities.configuration.enableParticleEffects.tooltip": "Enable particle effects when scanning entities with Civillis tools",
+  "civillis_entities.configuration.particleDurationTicks": "Particle Duration",
+  "civillis_entities.configuration.particleDurationTicks.tooltip": "Duration of particle effect (in ticks, 20 ticks = 1 second)",
+  "civillis_entities.configuration.initialParticleType": "Initial Particle Type",
+  "civillis_entities.configuration.initialParticleType.tooltip": "Particle type for initial burst effect. Available types: HAPPY_VILLAGER, GLOW, HEART, FLAME, SMOKE, etc.",
+  "civillis_entities.configuration.continuousParticleType": "Continuous Particle Type",
+  "civillis_entities.configuration.continuousParticleType.tooltip": "Particle type for continuous effect. Available types: GLOW, SPELL, INSTANT_SPELL, WITCH, etc.",
+  "civillis_entities.configuration.continuousParticleInterval": "Continuous Particle Interval",
+  "civillis_entities.configuration.continuousParticleInterval.tooltip": "Interval between continuous particle spawns (in ticks). Lower values = more frequent particles (more performance impact)",
+  
+  "civillis_entities.configuration.debug": "Debug Mode",
+  "civillis_entities.configuration.enableVerboseLogging": "Enable Verbose Logging",
+  "civillis_entities.configuration.enableVerboseLogging.tooltip": "Enable verbose logging for CEA operations. When disabled, only warnings and errors will be logged. When enabled, detailed info about sampling, processing, and entity tracking will be logged",
+  
+  "civillis_entities.configuration.heatmap_decay": "Heatmap Decay",
+  "civillis_entities.configuration.usePercentageDecay": "Use Percentage Decay",
+  "civillis_entities.configuration.usePercentageDecay.tooltip": "Heatmap decay mode selector. false = Fixed-value decay (default): Subtract a fixed amount each sampling; true = Percentage decay: Reduce heat by a percentage each sampling. Fixed decay is more stable for low-heat areas; Percentage decay encourages spreading out settlements",
+  "civillis_entities.configuration.heatDecayFixed": "Fixed Decay Amount",
+  "civillis_entities.configuration.heatDecayFixed.tooltip": "Fixed decay amount per sampling period (used when usePercentageDecay = false). Higher values make heat harder to accumulate, requiring more entities or frequent sampling",
+  "civillis_entities.configuration.heatDecayRate": "Percentage Decay Rate",
+  "civillis_entities.configuration.heatDecayRate.tooltip": "Percentage decay rate per sampling period (used when usePercentageDecay = true). Value between 0.0 and 1.0 (e.g., 0.10 = 10% decay). Higher values make heat harder to accumulate in high-heat areas",
+  
+  "civillis_entities.configuration.level_calculation": "Level Calculation",
+  "civillis_entities.configuration.useLinearLevelCalculation": "Use Linear Level Calculation",
+  "civillis_entities.configuration.useLinearLevelCalculation.tooltip": "Level calculation mode selector. false = Curve-based calculation (default): Higher levels require more heat (slower progression); true = Linear calculation: level = heat / threshold (simple and predictable). Curve mode makes it harder to reach high levels, encouraging more settlement activity",
+  "civillis_entities.configuration.levelCurveExponent": "Level Curve Exponent",
+  "civillis_entities.configuration.levelCurveExponent.tooltip": "Exponent for curve-based level calculation (used when useLinearLevelCalculation = false). Formula: level = (heat / threshold) ^ (1/exponent). Higher values = slower progression at high levels (more challenging); Lower values = faster progression (easier to reach high levels). Recommended range: 2.0-3.5 (default: 2.5 for balanced difficulty). Examples: 2.0 = square root (easy), 2.5 = moderate, 3.0 = cube root (hard)",
+  
+  "civillis_entities.message.reloadSuccess": "Entity weights reloaded successfully",
+  "civillis_entities.message.reloadFailed": "Failed to reload entity weights"
+}
