@@ -142,9 +142,8 @@ configurations {
 }
 
 dependencies {
-    // Civillis dependency - from Modrinth Maven
-    // Replace "VERSION" with the actual Civillis version you want to use
-    implementation "maven.modrinth:civillis:1.21.1-1.3.2"
+    // Civillis dependency - any version compatible with 1.21.1
+    implementation "maven.modrinth:civillis:[1.21.1,)"
     
     // Optional KubeJS integration - commented out for now due to Maven issues
     // compileOnly "dev.latvian.mods:kubejs-neoforge:2101.7.1-build.199"
